@@ -1,0 +1,28 @@
+# Merged into config.toml by flake.nix. Whisper truncates initial_prompt to 224
+# tokens, so keep it to terms the base model reliably gets wrong.
+[whisper]
+initial_prompt = """\
+Nix, nix-darwin, Home Manager, Homebrew, Hammerspoon, Ghostty, Voxtype, \
+Herdr, Worktrunk, GitHub Copilot, Claude, Codex, uv, TOML, YAML, worktree, \
+justfile, Neovim, tmux, yazi, jujutsu, direnv, yt-dlp, kanata, CUDA, \
+macOS, Cloudflare Tunnel.\
+"""
+
+[text]
+# v0.7.5 enables filler removal when [text] is absent but disables it when
+# the table exists without this key. Preserve the previous behavior.
+filter_filler_words = true
+
+# Only narrow aliases observed in dictation. Each has no ordinary-English
+# reading, so a false rewrite is not possible.
+[text.replacements]
+"vox type" = "Voxtype"
+"fox type" = "Voxtype"
+"tommal" = "TOML"
+"herder utility" = "Herdr utility"
+"mac os" = "macOS"
+"successor fail" = "success or fail"
+"ytdlp" = "yt-dlp"
+"nix os" = "NixOS"
+"cloud flare" = "Cloudflare"
+"dir env" = "direnv"

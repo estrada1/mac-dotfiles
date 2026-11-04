@@ -1,0 +1,12 @@
+onboarding = false
+
+[ui]
+agent_panel_sort = "priority"
+
+[keys]
+prefix = "ctrl+a"
+next_agent = "alt+shift+j"
+previous_agent = "alt+shift+k"
+new_workspace = ["prefix+shift+n", "alt+shift+n"]
+rename_workspace = ["prefix+shift+w", "alt+shift+r"]
+close_workspace = ["prefix+shift+d", "alt+shift+d"]

@@ -1,0 +1,5 @@
+editor = "nvim" # `e` opens the file at that line in Neovim
+comment_vim = false # plain text entry in the comment box; modal editing is overkill
+diff_view = "unified" # agent commits are often mostly additions
+theme = "tokyo-night-storm" # pick whichever matches your Neovim colorscheme
+ignore_whitespace = false # keep: agents sometimes make whitespace-only churn you want to see

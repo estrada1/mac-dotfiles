@@ -1,0 +1,62 @@
+# Ghostty terminal configuration.
+#
+# The first half is shared with the Linux machines; the macOS layer follows.
+# @ZSH@ is replaced with the Nix-managed zsh path by flake.nix.
+
+# Shell — use the Nix-managed zsh so ghostty's shell integration
+# detects zsh and injects correctly.
+command = @ZSH@ -l
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = clipboard
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
+
+# Scrollback / screen capture keybinds
+# The ,vt format preserves ANSI escape codes so baleia can render colours in nvim.
+# "screen" = full buffer (scrollback history + visible viewport).
+# "scrollback" = only lines above viewport (history).
+keybind = ctrl+shift+space=write_screen_file:open,vt
+keybind = ctrl+shift+k=write_scrollback_file:open,vt
+keybind = ctrl+shift+l=write_selection_file:open,vt
+
+# Word movement (Alt+arrow → ESC b / ESC f)
+keybind = alt+left=text:\x1bb
+keybind = alt+right=text:\x1bf
+
+# Vim-style scroll
+keybind = ctrl+shift+d=scroll_page_down
+keybind = ctrl+shift+u=scroll_page_up
+
+# Don't prompt when closing a window
+confirm-close-surface = false
+
+# Disable "unsafe paste" warning for multiline/special character pastes
+clipboard-paste-protection = false
+
+# ── macOS layer ──────────────────────────────────────────────────────────────
+
+# Resident instance, the macOS counterpart of sway's
+# `ghostty --initial-window=false` daemon: launched at login with no window,
+# and kept alive after the last window closes, so the global keybind below
+# always has a process to receive it.
+initial-window = false
+quit-after-last-window-closed = false
+
+# Cmd+Shift+Enter opens a terminal from anywhere — the $mod+Return of sway.
+# Cmd+Enter is avoided because a global bind steals the key from every app
+# (send in Gmail/Slack/GitHub, Ghostty's own fullscreen), and Ctrl+Opt+Enter/T
+# are Rectangle's maximize/two-thirds. This replaces Ghostty's default
+# super+shift+enter=toggle_split_zoom, unused since splits live in tmux.
+# `global:` needs Ghostty enabled under Privacy & Security > Accessibility.
+keybind = global:super+shift+enter=new_window
+
+# No title bar at all: windows are plain rectangles, as under sway. This also
+# hides the native tab strip, which is fine since tabs and splits live in tmux.
+# The window can still be moved and resized via Rectangle/Hammerspoon binds.
+macos-titlebar-style = hidden

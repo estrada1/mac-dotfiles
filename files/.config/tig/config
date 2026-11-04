@@ -1,0 +1,4 @@
+# Copy short hash of commit under cursor to clipboard
+bind main H @sh -c "h=$(echo %(commit) | cut -c1-10); printf %s $h | pbcopy && osascript -e \"display notification \\\"$h\\\" with title \\\"Copied\\\"\""
+bind diff H @sh -c "h=$(echo %(commit) | cut -c1-10); printf %s $h | pbcopy && osascript -e \"display notification \\\"$h\\\" with title \\\"Copied\\\"\""
+bind log  H @sh -c "h=$(echo %(commit) | cut -c1-10); printf %s $h | pbcopy && osascript -e \"display notification \\\"$h\\\" with title \\\"Copied\\\"\""

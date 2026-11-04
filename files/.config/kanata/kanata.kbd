@@ -1,0 +1,33 @@
+;; Kanata — macOS layout, run as a root launchd daemon by flake.nix.
+;;
+;; Deliberately smaller than the Linux layout: no home-row mods and
+;; no vimnav layer. Two dual-role keys only:
+;;   Caps — tap Escape, hold Cmd (the Linux layout's caps -> esc / meta).
+;;   Tab  — tap Tab, hold Ctrl+Opt+Cmd, the "hyper" chord the Hammerspoon binds
+;;          sit on (~/.hammerspoon/init.lua): Tab+h/l switches Space,
+;;          Tab+Space shows window hints, Tab+E shows Exposé.
+;;
+;; tap-hold-press resolves to the hold action as soon as another key goes down,
+;; so a fast Tab+l is the chord rather than "Tab, then l".
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  caps tab
+)
+
+(deflayer default
+  @caps @tab
+)
+
+(defvar
+  tap-timeout   200
+  hold-timeout  150
+)
+
+(defalias
+  caps (tap-hold-press $tap-timeout $hold-timeout esc lmet)
+  tab  (tap-hold-press $tap-timeout $hold-timeout tab (multi lctl lalt lmet))
+)

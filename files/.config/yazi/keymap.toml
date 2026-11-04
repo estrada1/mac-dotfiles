@@ -1,0 +1,46 @@
+# Open shell in current directory
+[[mgr.prepend_keymap]]
+on   = "!"
+run  = 'shell "$SHELL" --block'
+desc = "Open $SHELL here"
+
+# Yank also puts the selected paths on the system clipboard
+[[mgr.prepend_keymap]]
+on  = "y"
+run = [ 'shell -- for path in %s; do echo "$path"; done | pbcopy', "yank" ]
+
+[[mgr.prepend_keymap]]
+on   = "<C-y>"
+run  = [ 'shell -- for path in %s; do echo "$path"; done | pbcopy', "yank" ]
+desc = "Copy file paths to system clipboard"
+
+# Open Finder in yazi's current directory
+[[mgr.prepend_keymap]]
+on   = ["g", "n"]
+run  = 'shell -- open "$PWD"'
+desc = "Open Finder here"
+
+# Serve current directory with miniserve (blocks yazi, shows output, Ctrl+C to stop)
+[[mgr.prepend_keymap]]
+on   = ["g", "s"]
+run  = 'shell "miniserve $PWD" --block --confirm'
+desc = "Serve current directory with miniserve"
+
+# Copy scp command for highlighted files to clipboard via yazi's clipboard (OSC 52 over SSH).
+# Uses $SSH_CONNECTION to get the server IP the client connected via — always reachable.
+[[mgr.prepend_keymap]]
+on   = "S"
+run  = "plugin scp-clip"
+desc = "Copy scp command for selected files to clipboard (uses active SSH connection IP)"
+
+# Zip selected files/dirs (single = auto-named, multiple = prompts for name)
+[[mgr.prepend_keymap]]
+on   = ["g", "z"]
+run  = "plugin archive-zip"
+desc = "Zip selected files/dirs into an archive"
+
+# Maximize / restore the preview pane
+[[mgr.prepend_keymap]]
+on   = "T"
+run  = "plugin toggle-pane max-preview"
+desc = "Maximize/restore preview pane"
